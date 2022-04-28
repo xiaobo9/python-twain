@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+<title>扫描工具测试页面</title>
+<meta charset="UTF-8">
+</head>
+<script type="text/javascript">
+    // Promise all race
+    function ajax(method,url,params={}) {
+        return new Promise((resolve, reject)=>{
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else {
+                        reject(JSON.parse(xh.responseText))
+                    }
+                }
+            }
+            xhr.open(method,url);
+            xhr.send(params);
+        })
+    }
+
+    function scan() {
+        ajax("get","/api/scan")
+        .then(data=>{
+            alert(JSON.stringify(data));
+        })
+    }
+</script>
+<body>
+    <div>
+        <button type="button" onclick="scan()">扫描按钮</button>
+    </div>
+    <div>
+        <a onclick="scan()" href="">扫描链接</a>
+    </div>
+</body>
+</html>
